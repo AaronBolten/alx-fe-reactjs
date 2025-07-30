@@ -7,7 +7,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<><AddRecipeForm/><RecipeList/></>} />
+        <Route path="/" element={
+          <>
+          <AddRecipeForm/>
+          <RecipeList/>
+          </>
+        } />
         <Route path="/recipe/:id" element={<RecipeDetails/>} />
       </Routes>
     </Router>
