@@ -1,72 +1,92 @@
 import { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { fetchAdvancedUsers } from "../services/githubService";
 
 export default function Search() {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
-
     setLoading(true);
     setError("");
-    setUser(null);
+    setResults([]);
 
     try {
-      const data = await fetchUserData(username.trim());
-      setUser(data);
+      const users = await fetchAdvancedUsers(username, location, minRepos);
+      setResults(users);
     } catch {
-      setError("Looks like we can't find the user.");
+      setError("Failed to fetch users. Try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: 500, margin: "32px auto", padding: "0 16px" }}>
-      <h2>Search GitHub User</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: 8 }}>
+    <div className="max-w-2xl mx-auto mt-8 p-4">
+      <h2 className="text-2xl font-semibold mb-4">Advanced GitHub User Search</h2>
+      <form onSubmit={handleSubmit} className="grid gap-4">
         <input
           type="text"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter GitHub username"
-          style={{ flex: 1, padding: "8px 10px" }}
+          className="p-2 border rounded w-full"
         />
-        <button type="submit">Search</button>
+        <input
+          type="text"
+          placeholder="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="p-2 border rounded w-full"
+        />
+        <input
+          type="number"
+          placeholder="Minimum Repositories"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="p-2 border rounded w-full"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Search
+        </button>
       </form>
 
-      {loading && <p style={{ marginTop: 16 }}>Loading...</p>}
-      {error && <p style={{ marginTop: 16, color: "crimson" }}>{error}</p>}
+      {loading && <p className="mt-4 text-gray-600">Loading...</p>}
+      {error && <p className="mt-4 text-red-600">{error}</p>}
 
-      {user && (
-        <div
-          style={{
-            marginTop: 24,
-            padding: 16,
-            border: "1px solid #ddd",
-            borderRadius: 8,
-            textAlign: "center",
-          }}
-        >
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            width="80"
-            height="80"
-            style={{ borderRadius: "50%" }}
-          />
-          <h3>{user.name || user.login}</h3>
-          <p>
-            <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-              View Profile
-            </a>
-          </p>
-        </div>
-      )}
+      <div className="mt-6 space-y-4">
+        {results.map((user) => (
+          <div
+            key={user.id}
+            className="p-4 border rounded shadow-sm flex items-center gap-4"
+          >
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="w-16 h-16 rounded-full"
+            />
+            <div>
+              <p className="font-bold">{user.login}</p>
+              {user.location && <p className="text-sm">{user.location}</p>}
+              <a
+                href={user.html_url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 text-sm"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
