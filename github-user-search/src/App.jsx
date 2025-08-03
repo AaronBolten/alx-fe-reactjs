@@ -1,21 +1,16 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
+import Search from "./components/Search";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <header style={{ borderBottom: "1px solid #eee", padding: "12px 16px" }}>
-        <nav style={{ display: "flex", gap: 12 }}>
-          <Link to="/">Home</Link>
-        </nav>
+    <div>
+      <header style={{ padding: 16, borderBottom: "1px solid #eee" }}>
+        <h1 style={{ margin: 0 }}>GitHub User Search</h1>
       </header>
-
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+        <Search />
       </main>
-    </BrowserRouter>
+    </div>
   );
 }
-
