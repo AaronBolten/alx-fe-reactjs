@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://via.placeholder.com/640x360?text=Carbonara"
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Grilled chicken tikka simmered in a creamy tomato-based masala sauce.",
+    "image": "https://via.placeholder.com/640x360?text=Tikka+Masala"
+  },
+  {
+    "id": 3,
+    "title": "Veggie Stir-Fry",
+    "summary": "Colorful vegetables tossed with soy, ginger, and sesame—served over rice.",
+    "image": "https://via.placeholder.com/640x360?text=Veggie+Stir-Fry"
+  },
+  {
+    "id": 4,
+    "title": "Avocado Toast",
+    "summary": "Crispy sourdough topped with smashed avocado, chili flakes, and lemon.",
+    "image": "https://via.placeholder.com/640x360?text=Avocado+Toast"
+  },
+  {
+    "id": 5,
+    "title": "Beef Pho",
+    "summary": "Vietnamese noodle soup with aromatic broth, herbs, and thin-sliced beef.",
+    "image": "https://via.placeholder.com/640x360?text=Beef+Pho"
+  },
+  {
+    "id": 6,
+    "title": "Blueberry Pancakes",
+    "summary": "Fluffy pancakes studded with blueberries and a drizzle of maple syrup.",
+    "image": "https://via.placeholder.com/640x360?text=Blueberry+Pancakes"
+  }
+]
