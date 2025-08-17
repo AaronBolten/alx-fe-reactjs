@@ -3,36 +3,40 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/640x360?text=Carbonara"
+    "image": "https://via.placeholder.com/640x360?text=Carbonara",
+    "ingredients": [
+      "200g spaghetti",
+      "2 eggs + 1 yolk",
+      "80g pancetta or bacon",
+      "40g grated pecorino or parmesan",
+      "Salt & freshly ground black pepper"
+    ],
+    "steps": [
+      "Cook spaghetti in salted water until al dente.",
+      "Crisp pancetta in a pan; remove from heat.",
+      "Whisk eggs, yolk, and cheese in a bowl.",
+      "Toss hot pasta with pancetta and fat, then quickly stir in egg mixture off the heat.",
+      "Season generously with pepper and serve immediately."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Grilled chicken tikka simmered in a creamy tomato-based masala sauce.",
-    "image": "https://via.placeholder.com/640x360?text=Tikka+Masala"
-  },
-  {
-    "id": 3,
-    "title": "Veggie Stir-Fry",
-    "summary": "Colorful vegetables tossed with soy, ginger, and sesame—served over rice.",
-    "image": "https://via.placeholder.com/640x360?text=Veggie+Stir-Fry"
-  },
-  {
-    "id": 4,
-    "title": "Avocado Toast",
-    "summary": "Crispy sourdough topped with smashed avocado, chili flakes, and lemon.",
-    "image": "https://via.placeholder.com/640x360?text=Avocado+Toast"
-  },
-  {
-    "id": 5,
-    "title": "Beef Pho",
-    "summary": "Vietnamese noodle soup with aromatic broth, herbs, and thin-sliced beef.",
-    "image": "https://via.placeholder.com/640x360?text=Beef+Pho"
-  },
-  {
-    "id": 6,
-    "title": "Blueberry Pancakes",
-    "summary": "Fluffy pancakes studded with blueberries and a drizzle of maple syrup.",
-    "image": "https://via.placeholder.com/640x360?text=Blueberry+Pancakes"
+    "image": "https://via.placeholder.com/640x360?text=Tikka+Masala",
+    "ingredients": [
+      "500g chicken breast, cubed",
+      "1 cup yogurt, 2 tbsp lemon juice",
+      "2 tsp garam masala, 1 tsp cumin, 1 tsp paprika",
+      "1 onion, 2 cloves garlic, 1 inch ginger",
+      "400g tomato puree, 1/2 cup cream, salt"
+    ],
+    "steps": [
+      "Marinate chicken in yogurt, lemon juice, and spices 30+ mins.",
+      "Grill or pan-sear chicken until charred and cooked.",
+      "Sauté onion, garlic, ginger; add tomato puree and simmer.",
+      "Stir in cream and chicken; simmer 5–8 mins. Adjust salt.",
+      "Serve with rice or naan."
+    ]
   }
 ]
