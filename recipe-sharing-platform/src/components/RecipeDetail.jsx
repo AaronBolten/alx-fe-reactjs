@@ -101,7 +101,7 @@ export default function RecipeDetail() {
           <div className="lg:col-span-2">
             <div className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow">
               <h2 className="text-xl font-semibold text-gray-900">
-                Instructions
+                instructions
               </h2>
               <ol className="mt-4 list-decimal list-inside space-y-3 text-gray-700">
                 {recipe.steps?.map((step, idx) => (
