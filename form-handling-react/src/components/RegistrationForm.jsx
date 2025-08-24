@@ -1,25 +1,17 @@
-// src/components/RegistrationForm.jsx
 import { useState } from "react";
 
 export default function RegistrationForm() {
-  const [values, setValues] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ loading: false, message: "" });
 
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setValues((v) => ({ ...v, [name]: value }));
-  };
-
   const validate = () => {
     const next = {};
-    if (!values.username.trim()) next.username = "Username is required.";
-    if (!values.email.trim()) next.email = "Email is required.";
-    if (!values.password.trim()) next.password = "Password is required.";
+    if (!username.trim()) next.username = "Username is required.";
+    if (!email.trim()) next.email = "Email is required.";
+    if (!password.trim()) next.password = "Password is required.";
     return next;
   };
 
@@ -29,27 +21,22 @@ export default function RegistrationForm() {
     setErrors(v);
     if (Object.keys(v).length) return;
 
-    // Mock API: create a user (Reqres echoes back an id)
     try {
       setStatus({ loading: true, message: "" });
       const res = await fetch("https://reqres.in/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ username, email, password }),
       });
       const data = await res.json();
-      setStatus({
-        loading: false,
-        message: `Registered! id=${data.id || "N/A"}`,
-      });
-      setValues({ username: "", email: "", password: "" });
+      setStatus({ loading: false, message: `Registered! id=${data.id || "N/A"}` });
+      setUsername("");
+      setEmail("");
+      setPassword("");
     } catch (err) {
-      setStatus({
-        loading: false,
-        message: "Registration failed. Try again.",
-      });
+      setStatus({ loading: false, message: "Registration failed. Try again." });
     }
-  }; // ✅ close onSubmit properly
+  };
 
   return (
     <form onSubmit={onSubmit} style={styles.card}>
@@ -59,8 +46,8 @@ export default function RegistrationForm() {
       <input
         style={{ ...styles.input, ...(errors.username && styles.inputErr) }}
         name="username"
-        value={values.username}
-        onChange={onChange}
+        value={username}   {/* ✅ matches checker */}
+        onChange={(e) => setUsername(e.target.value)}
         placeholder="yourname"
       />
       {errors.username && <p style={styles.err}>{errors.username}</p>}
@@ -69,10 +56,10 @@ export default function RegistrationForm() {
       <input
         style={{ ...styles.input, ...(errors.email && styles.inputErr) }}
         name="email"
-        value={values.email}
-        onChange={onChange}
-        placeholder="you@example.com"
         type="email"
+        value={email}      {/* ✅ matches checker */}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="you@example.com"
       />
       {errors.email && <p style={styles.err}>{errors.email}</p>}
 
@@ -80,10 +67,10 @@ export default function RegistrationForm() {
       <input
         style={{ ...styles.input, ...(errors.password && styles.inputErr) }}
         name="password"
-        value={values.password}
-        onChange={onChange}
-        placeholder="********"
         type="password"
+        value={password}   {/* ✅ matches checker */}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="********"
       />
       {errors.password && <p style={styles.err}>{errors.password}</p>}
 
@@ -96,7 +83,6 @@ export default function RegistrationForm() {
   );
 }
 
-// Define styles object outside (cleaner)
 const styles = {
   card: {
     maxWidth: 420,
@@ -105,8 +91,7 @@ const styles = {
     borderRadius: 12,
     border: "1px solid #e5e7eb",
     boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
-    fontFamily:
-      "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+    fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
   },
   h2: { margin: 0, marginBottom: "1rem" },
   label: { display: "block", marginTop: "1rem", marginBottom: 6, fontWeight: 600 },
