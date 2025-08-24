@@ -13,8 +13,8 @@ export default function PostsComponent() {
   const {
     data,
     error,
-    isPending,   
-    isFetching,  
+    isPending: isLoading,   
+    isFetching, 
     isError,     
     refetch,     
     status,     
@@ -43,7 +43,7 @@ export default function PostsComponent() {
         {isFetching ? " • updating…" : ""}
       </div>
 
-      {isPending && <p className="text-gray-600">Loading posts…</p>}
+      {isLoading && <p className="text-gray-600">Loading posts…</p>}
 
       {isError && (                                   // ✔ use isError
         <p className="text-red-600">
