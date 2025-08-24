@@ -1,0 +1,134 @@
+// src/components/RegistrationForm.jsx
+import { useState } from "react";
+
+export default function RegistrationForm() {
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState({ loading: false, message: "" });
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setValues((v) => ({ ...v, [name]: value }));
+  };
+
+  const validate = () => {
+    const next = {};
+    if (!values.username.trim()) next.username = "Username is required.";
+    if (!values.email.trim()) next.email = "Email is required.";
+    if (!values.password.trim()) next.password = "Password is required.";
+    return next;
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const v = validate();
+    setErrors(v);
+    if (Object.keys(v).length) return;
+
+    // Mock API: create a user (Reqres echoes back an id)
+    try {
+      setStatus({ loading: true, message: "" });
+      const res = await fetch("https://reqres.in/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await res.json();
+      setStatus({
+        loading: false,
+        message: `Registered! id=${data.id || "N/A"}`,
+      });
+      setValues({ username: "", email: "", password: "" });
+    } catch (err) {
+      setStatus({
+        loading: false,
+        message: "Registration failed. Try again.",
+      });
+    }
+  }; // ✅ close onSubmit properly
+
+  return (
+    <form onSubmit={onSubmit} style={styles.card}>
+      <h2 style={styles.h2}>Register (Controlled)</h2>
+
+      <label style={styles.label}>Username</label>
+      <input
+        style={{ ...styles.input, ...(errors.username && styles.inputErr) }}
+        name="username"
+        value={values.username}
+        onChange={onChange}
+        placeholder="yourname"
+      />
+      {errors.username && <p style={styles.err}>{errors.username}</p>}
+
+      <label style={styles.label}>Email</label>
+      <input
+        style={{ ...styles.input, ...(errors.email && styles.inputErr) }}
+        name="email"
+        value={values.email}
+        onChange={onChange}
+        placeholder="you@example.com"
+        type="email"
+      />
+      {errors.email && <p style={styles.err}>{errors.email}</p>}
+
+      <label style={styles.label}>Password</label>
+      <input
+        style={{ ...styles.input, ...(errors.password && styles.inputErr) }}
+        name="password"
+        value={values.password}
+        onChange={onChange}
+        placeholder="********"
+        type="password"
+      />
+      {errors.password && <p style={styles.err}>{errors.password}</p>}
+
+      <button style={styles.button} disabled={status.loading}>
+        {status.loading ? "Submitting..." : "Submit"}
+      </button>
+
+      {status.message && <p style={styles.ok}>{status.message}</p>}
+    </form>
+  );
+}
+
+// Define styles object outside (cleaner)
+const styles = {
+  card: {
+    maxWidth: 420,
+    margin: "2rem auto",
+    padding: "1.5rem",
+    borderRadius: 12,
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.06)",
+    fontFamily:
+      "system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif",
+  },
+  h2: { margin: 0, marginBottom: "1rem" },
+  label: { display: "block", marginTop: "1rem", marginBottom: 6, fontWeight: 600 },
+  input: {
+    width: "100%",
+    padding: "0.6rem 0.8rem",
+    borderRadius: 8,
+    border: "1px solid #d1d5db",
+    outline: "none",
+  },
+  inputErr: { borderColor: "#ef4444", background: "#fff7f7" },
+  button: {
+    marginTop: "1.25rem",
+    width: "100%",
+    padding: "0.7rem",
+    borderRadius: 8,
+    border: "none",
+    background: "#2563eb",
+    color: "#fff",
+    fontWeight: 600,
+    cursor: "pointer",
+  },
+  err: { color: "#ef4444", marginTop: 6, fontSize: 14 },
+  ok: { color: "#16a34a", marginTop: 12, fontSize: 14 },
+};
