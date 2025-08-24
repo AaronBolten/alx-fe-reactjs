@@ -24,6 +24,9 @@ export default function PostsComponent() {
     staleTime: 30_000,          
     gcTime: 5 * 60_000,         
     placeholderData: (prev) => prev,
+    cacheTime: 5 * 60_000,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
   return (
