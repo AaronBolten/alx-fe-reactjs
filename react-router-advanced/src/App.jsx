@@ -1,46 +1,77 @@
-import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./auth";
+import { useState } from "react";
+import {
+  BrowserRouter,     
+  Routes,
+  Route,
+  NavLink,
+} from "react-router-dom";
+
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Layout from "./components/Layout";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Profile from "./pages/Profile.jsx";
+import ProfileDetails from "./pages/ProfileDetails.jsx";
+import ProfileSettings from "./pages/ProfileSettings.jsx";
+import Posts from "./pages/Posts.jsx";
+import PostDetail from "./pages/PostDetail.jsx";
+import Login from "./pages/Login.jsx";
 
-import Home from "./pages/Home";
-import Posts from "./pages/Posts";
-import PostDetail from "./pages/PostDetail";
-
-import Profile from "./pages/Profile";
-import ProfileDetails from "./pages/ProfileDetails";
-import ProfileSettings from "./pages/ProfileSettings";
-import Login from "./pages/Login";
+function Home() {
+  return <h1>Home</h1>;
+}
 
 export default function App() {
+
+  const [isAuthed, setIsAuthed] = useState(false);
+
   return (
-    <AuthProvider>
-      <Routes>
-        <Route element={<Layout />}>
+    <BrowserRouter>
+      <div style={{ padding: 16, fontFamily: "system-ui, sans-serif" }}>
+        {/* top nav */}
+        <nav style={{ display: "flex", gap: 12, marginBottom: 16 }}>
+          <NavLink to="/" end>Home</NavLink>
+          <NavLink to="/posts">Posts</NavLink>
+          <NavLink to="/profile">Profile</NavLink>
+        </nav>
+
+        <div style={{ marginBottom: 12 }}>
+          {isAuthed ? (
+            <>
+              Signed in •{" "}
+              <button onClick={() => setIsAuthed(false)}>Logout</button>
+            </>
+          ) : (
+            <button onClick={() => setIsAuthed(true)}>Quick Login</button>
+          )}
+        </div>
+
+        {/* routes */}
+        <Routes>
           <Route path="/" element={<Home />} />
 
+          {/* Dynamic routes */}
           <Route path="posts" element={<Posts />} />
           <Route path="posts/:postId" element={<PostDetail />} />
 
+          {/* Protected parent with nested children */}
           <Route
             path="profile"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute isAuthed={isAuthed}>
                 <Profile />
               </ProtectedRoute>
             }
           >
-
             <Route index element={<ProfileDetails />} />
-
             <Route path="settings" element={<ProfileSettings />} />
           </Route>
 
+          {/* Login page used by the guard redirect */}
           <Route path="login" element={<Login />} />
 
+          {/* 404 */}
           <Route path="*" element={<h1>Not Found</h1>} />
-        </Route>
-      </Routes>
-    </AuthProvider>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }

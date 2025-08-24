@@ -1,3 +1,4 @@
+// src/components/Profile.jsx
 import { NavLink, Outlet } from "react-router-dom";
 
 export default function Profile() {
@@ -10,7 +11,7 @@ export default function Profile() {
         </NavLink>
         <NavLink to="settings">Settings</NavLink>
       </nav>
-      {/* Nested content renders here */}
+      {/* Nested routes render here */}
       <Outlet />
     </>
   );
