@@ -7,13 +7,14 @@ export default function RegistrationForm() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ loading: false, message: "" });
 
-  const validate = () => {
-    const next = {};
-    if (!username.trim()) next.username = "Username is required.";
-    if (!email.trim()) next.email = "Email is required.";
-    if (!password.trim()) next.password = "Password is required.";
-    return next;
-  };
+const validate = () => {
+  const next = {};
+  if (!username) next.username = "Username is required.";
+  if (!email) next.email = "Email is required.";
+  if (!password) next.password = "Password is required.";
+  return next;
+};
+
 
   const onSubmit = async (e) => {
     e.preventDefault();
