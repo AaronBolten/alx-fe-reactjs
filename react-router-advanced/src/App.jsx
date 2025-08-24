@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import Layout from "./components/Layout";
+import Layout from "./components/Profile.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProfileDetails from "./pages/ProfileDetails.jsx";
 import ProfileSettings from "./pages/ProfileSettings.jsx";
